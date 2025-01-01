@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../core/utils/colors.dart';
-import '../../core/utils/dimensions.dart';
-import '../../core/utils/images.dart';
+import '../../../../core/utils/colors.dart';
+import '../../../../core/utils/dimensions.dart';
+import '../../../../core/utils/images.dart';
 import 'deatil_app_view.dart';
 
 class SplashView extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SplashViewState extends State<SplashView> {
       const Duration(seconds: 4),
       (timer) {
         timer.cancel();
-        Get.to(() => const DeatilAppView());
+        Get.off(() => const DeatilAppView());
       },
     );
   }
@@ -40,7 +40,7 @@ class _SplashViewState extends State<SplashView> {
               Dimensions.height10,
             ),
             child: SizedBox(
-              height: Dimensions.height100,
+              height: Dimensions.screenHeight * 0.4,
               child: Image.asset(
                 Images.logo,
                 fit: BoxFit.cover,

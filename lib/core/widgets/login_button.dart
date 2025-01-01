@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../features/auth/presentation/screens/signin_view.dart';
 import '../utils/dimensions.dart';
 import 'main_button.dart';
 
@@ -14,7 +16,7 @@ class LoginButton extends StatelessWidget {
       child: MainButton(
         text: 'Go to LogIn',
         onTap: () {
-          // Get.to(() => SignInView());
+          Get.to(() => SignInView());
         },
       ),
     );

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../core/utils/colors.dart';
-import '../../core/utils/dimensions.dart';
-import '../../core/utils/images.dart';
-import '../../core/widgets/big_text.dart';
-import '../../core/widgets/login_button.dart';
-import '../../core/widgets/register_button.dart';
+import '../../../../core/utils/colors.dart';
+import '../../../../core/utils/dimensions.dart';
+import '../../../../core/utils/images.dart';
+import '../../../../core/widgets/big_text.dart';
+import '../../../../core/widgets/login_button.dart';
 
 class DeatilAppView extends StatefulWidget {
   const DeatilAppView({super.key});
@@ -50,28 +49,13 @@ class _DeatilAppViewState extends State<DeatilAppView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 BigText(
-                  text: 'Finding The ',
+                  text: 'Manage your ',
                   color: Colors.black,
                   size: Dimensions.font32,
                 ),
                 BigText(
-                  text: 'Perfect',
+                  text: 'Stress',
                   color: AppColors.mainColor,
-                  size: Dimensions.font32,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                BigText(
-                  text: 'Course ',
-                  color: AppColors.mainColor,
-                  size: Dimensions.font32,
-                ),
-                BigText(
-                  text: 'for You',
-                  color: Colors.black,
                   size: Dimensions.font32,
                 ),
               ],
@@ -83,21 +67,6 @@ class _DeatilAppViewState extends State<DeatilAppView> {
                 top: screenHeight * 0.03,
               ),
               child: const LoginButton(),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            BigText(
-              text: 'OR',
-              color: Colors.black,
-              size: Dimensions.font16,
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: Dimensions.height15,
-                vertical: Dimensions.height20,
-              ),
-              child: const RegisterButton(),
             ),
           ],
         ),

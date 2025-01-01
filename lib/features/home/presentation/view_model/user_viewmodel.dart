@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nasma_app/app.dart';
 import 'package:nasma_app/core/utils/constants.dart';
-import 'package:nasma_app/features/home/home_screen.dart';
-import 'package:nasma_app/features/home/profile_screen.dart';
+import 'package:nasma_app/features/home/presentation/screens/home_screen.dart';
+import 'package:nasma_app/features/home/presentation/screens/profile_screen.dart';
 import 'package:nasma_app/models/user_model.dart';
 
 class UserViewModel extends GetxController {
