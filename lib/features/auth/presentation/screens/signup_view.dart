@@ -1,15 +1,90 @@
-// import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nasma_app/core/utils/api_service.dart';
+import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
 import 'package:nasma_app/core/widgets/big_text.dart';
-import 'package:nasma_app/core/widgets/data_input.dart';
 import 'package:nasma_app/core/widgets/main_button.dart';
 import 'package:nasma_app/core/widgets/small_text.dart';
 import 'package:nasma_app/features/auth/presentation/screens/signin_view.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   const SignupView({super.key});
+
+  @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  bool hidePassword = true;
+  bool action = false;
+  final userNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final password2Controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    action = false;
+  }
+
+  void signUp() async {
+    setState(() {
+      action = true;
+    });
+    try {
+      var response = await http.post(
+        Uri.parse(ApiService.registration),
+        body: {
+          'username': userNameController.text,
+          'email': emailController.text,
+          'password1': passwordController.text,
+          'password2': password2Controller.text,
+        },
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // TODO: save token => response.body
+        Get.showSnackbar(GetSnackBar(
+          title: 'Success',
+          message: "Creating User Success",
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+        ));
+        Get.offAll(() => SignInView());
+      } else {
+        Get.showSnackbar(GetSnackBar(
+          title: 'Error',
+          message: "Something Error",
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 2),
+        ));
+      }
+    } catch (error) {
+      Get.showSnackbar(GetSnackBar(
+        title: 'Error',
+        message: error.toString(),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 2),
+      ));
+    }
+    setState(() {
+      action = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    password2Controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,39 +103,158 @@ class SignupView extends StatelessWidget {
                     text: 'Sign Up',
                     color: Colors.black,
                   ),
-                  DataInput(
-                    text: 'User Name',
+                  SizedBox(
+                    height: 20,
                   ),
-                  DataInput(
-                    text: 'Email',
+                  SizedBox(
+                    height: Dimensions.height100,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigText(
+                          text: 'User Name',
+                          size: Dimensions.font20,
+                          color: Colors.black,
+                          textAlign: TextAlign.start,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: userNameController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  DataInput(
-                    text: 'Password',
+                  SizedBox(
+                    height: 20,
                   ),
-                  DataInput(
-                    text: 'Confirm Password',
+                  SizedBox(
+                    height: Dimensions.height100,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigText(
+                          text: 'Email',
+                          size: Dimensions.font20,
+                          color: Colors.black,
+                          textAlign: TextAlign.start,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  MainButton(
-                    text: 'SignUp',
-                    onTap: () async {
-                      // try {
-                      //   var response = await http.post(
-                      //     Uri.parse(
-                      //         'http://127.0.0.1:8000/api/v1/dj-rest-auth/registration/'),
-                      //     body: {
-                      //       'username': 'amrabdalfatah',
-                      //       'email': 'amr@gmail.com',
-                      //       'password1': 'Amr123456',
-                      //       'password2': 'Amr123456',
-                      //     },
-                      //   );
-                      //   print(response.statusCode);
-                      //   print(response.body);
-                      // } catch (error) {
-                      //   print(error);
-                      // }
-                    },
+                  SizedBox(
+                    height: 20,
                   ),
+                  SizedBox(
+                    height: Dimensions.height100,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigText(
+                          text: 'Password',
+                          size: Dimensions.font20,
+                          color: Colors.black,
+                          textAlign: TextAlign.start,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: passwordController,
+                            obscureText: hidePassword,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassword = !hidePassword;
+                                  });
+                                },
+                                icon: Icon(
+                                  hidePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: Dimensions.height100,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BigText(
+                          text: 'Confirm Password',
+                          size: Dimensions.font20,
+                          color: Colors.black,
+                          textAlign: TextAlign.start,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: password2Controller,
+                            obscureText: hidePassword,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hidePassword = !hidePassword;
+                                  });
+                                },
+                                icon: Icon(
+                                  hidePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  action
+                      ? Center(
+                          child: CupertinoActivityIndicator(
+                            color: AppColors.mainColor,
+                          ),
+                        )
+                      : MainButton(
+                          text: 'SignUp',
+                          onTap: signUp,
+                        ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -73,7 +267,12 @@ class SignupView extends StatelessWidget {
                         onPressed: () {
                           Get.offAll(() => SignInView());
                         },
-                        child: Text('Log in'),
+                        child: Text(
+                          'Log in',
+                          style: TextStyle(
+                            fontSize: Dimensions.font16,
+                          ),
+                        ),
                       )
                     ],
                   ),

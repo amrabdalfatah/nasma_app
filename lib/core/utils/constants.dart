@@ -1,6 +1,7 @@
+import 'package:nasma_app/models/user_model.dart';
+
 class AppConstants {
   static String? userId;
-  static bool? isGuest;
-  static String? userName;
-  static String? userCode;
+  static String? userToken;
+  static UserModel? userModel;
 }

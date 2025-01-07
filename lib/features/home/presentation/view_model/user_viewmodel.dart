@@ -26,21 +26,14 @@ class UserViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (!AppConstants.isGuest!) {
-      getUser();
-    }
+    // if (!AppConstants.isGuest!) {
+    //   getUser();
+    // }
   }
 
   Future<void> getUser() async {
-    dataLoaded.value = false;
-    // await FireStoreStudent()
-    //     .getCurrentStudent(AppConstants.userId!)
-    //     .then((value) {
-    //   studentData =
-    //       StudentModel.fromJson(value.data() as Map<dynamic, dynamic>?);
-    // }).whenComplete(
-    //   () {},
-    // );
+    // dataLoaded.value = false;
+    // Code to get user
     dataLoaded.value = true;
     update();
   }
@@ -50,13 +43,7 @@ class UserViewModel extends GetxController {
     update();
   }
 
-  void changeCat(int index) {
-    catIndex.value = index;
-    update();
-  }
-
   void signOut() async {
-    // await FirebaseAuth.instance.signOut();
     final box = GetStorage();
     box.remove('userid');
     box.remove('usertype');

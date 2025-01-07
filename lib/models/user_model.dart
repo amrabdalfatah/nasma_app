@@ -1,52 +1,36 @@
 class UserModel {
-  String? userId;
-  String? fullName;
-  String? code;
+  int? id;
+  String? userName;
   String? email;
-  String? password;
-  String? phone;
-  String? image;
-  bool? isActive;
-  String? deviceId;
+  String? firstName;
+  String? lastName;
 
   UserModel({
-    this.userId,
+    this.id,
     this.email,
-    this.phone,
-    this.fullName,
-    this.code,
-    this.image,
-    this.deviceId,
-    this.password,
-    this.isActive = true,
+    this.userName,
+    this.firstName,
+    this.lastName,
   });
 
   UserModel.fromJson(Map<dynamic, dynamic>? map) {
     if (map == null) {
       return;
     }
-    userId = map['userId'];
-    fullName = map['fullName'];
-    code = map['code'];
+    id = map['id'];
+    userName = map['username'];
     email = map['email'];
-    password = map['password'];
-    phone = map['phone'];
-    image = map['image'];
-    isActive = map['isActive'];
-    deviceId = map['deviceId'];
+    firstName = map['first_name'];
+    lastName = map['last_name'];
   }
 
   toJson() {
     return {
-      'userId': userId,
-      'fullName': fullName,
-      'code': code,
+      'id': id,
+      'username': userName,
       'email': email,
-      'password': password,
-      'phone': phone,
-      'image': image,
-      'isActive': isActive,
-      'deviceId': deviceId,
+      'first_name': firstName,
+      'last_name': lastName,
     };
   }
 }
