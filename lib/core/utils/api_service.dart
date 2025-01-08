@@ -18,5 +18,11 @@ class ApiService {
   static const String questions = "${baseUrl}pss/questions/";
   static const String pssTest = "${baseUrl}pss/psstest/";
   static const String pssResults = "${baseUrl}pss/pssresults/";
+  static const String breathingExercise =
+      "${baseUrl}breathing/breathingexercise/";
+  static const String userBreathingSession =
+      "${baseUrl}breathing/userbreathingsession/";
+  static const String breathingSession =
+      "${baseUrl}breathing/breathingsession/";
   static const String article = "${baseUrl}article/";
 }

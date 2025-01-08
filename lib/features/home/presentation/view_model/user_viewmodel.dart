@@ -2,37 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nasma_app/app.dart';
-import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/features/home/presentation/screens/home_screen.dart';
 import 'package:nasma_app/features/home/presentation/screens/profile_screen.dart';
 import 'package:nasma_app/models/user_model.dart';
+
+import '../screens/article_screen.dart';
+import '../screens/setting_screen.dart';
 
 class UserViewModel extends GetxController {
   UserModel? userData;
 
   List<Widget> screens = const [
     HomeScreen(),
+    ArticleScreen(),
     ProfileScreen(),
+    SettingScreen(),
   ];
   List<String> appBars = [
     'Home',
+    'Articles',
     'Profile',
+    'Setting',
   ];
   RxBool action = false.obs;
   ValueNotifier<bool> dataLoaded = ValueNotifier(true);
   ValueNotifier<int> screenIndex = ValueNotifier(0);
   RxInt catIndex = 0.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    // if (!AppConstants.isGuest!) {
-    //   getUser();
-    // }
-  }
-
   Future<void> getUser() async {
-    // dataLoaded.value = false;
     // Code to get user
     dataLoaded.value = true;
     update();

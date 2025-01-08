@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nasma_app/core/utils/colors.dart';
-import 'package:nasma_app/core/widgets/big_text.dart';
 
-import '../../../../core/utils/dimensions.dart';
 import '../view_model/user_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
@@ -39,14 +37,14 @@ class HomeView extends StatelessWidget {
                 icon: Icon(CupertinoIcons.home),
                 label: 'Home',
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(CupertinoIcons.book_solid),
-              //   label: 'Breathing Session',
-              // ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(CupertinoIcons.chat_bubble_2_fill),
-              //   label: 'Articles',
-              // ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.chat_bubble_2_fill),
+                label: 'Articles',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(CupertinoIcons.book_solid),
+                label: 'Settings',
+              ),
               BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.profile_circled),
                 label: 'Profile',

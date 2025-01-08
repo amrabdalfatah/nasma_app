@@ -5,7 +5,7 @@ import '../utils/dimensions.dart';
 import 'small_text.dart';
 
 class MainButton extends StatelessWidget {
-  final void Function() onTap;
+  final void Function()? onTap;
   final String text;
   final Color color;
   const MainButton({

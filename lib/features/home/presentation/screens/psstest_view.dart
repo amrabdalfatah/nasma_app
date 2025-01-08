@@ -9,9 +9,11 @@ import 'package:nasma_app/core/utils/api_service.dart';
 import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
-import 'package:nasma_app/features/home/presentation/screens/home_view.dart';
+import 'package:nasma_app/features/home/presentation/screens/breathing_session_view.dart';
 import 'package:nasma_app/models/pss_test.dart';
 import 'package:nasma_app/models/question_test.dart';
+
+import 'chat_view.dart';
 
 class PSSTestView extends StatefulWidget {
   const PSSTestView({super.key});
@@ -26,6 +28,10 @@ class _PSSTestViewState extends State<PSSTestView> {
   bool? dataLoaded;
   int result = 0;
   int index = 0;
+  int? testId;
+  int? sessionId;
+  int? duration;
+  String? level;
 
   @override
   void initState() {
@@ -59,8 +65,6 @@ class _PSSTestViewState extends State<PSSTestView> {
       index++;
       setState(() {});
     } else {
-      int? testId;
-      String? level;
       await http.post(
         Uri.parse(ApiService.pssTest),
         body: {
@@ -74,10 +78,13 @@ class _PSSTestViewState extends State<PSSTestView> {
           testId = testModel.id;
           if (result <= 13) {
             level = "Low";
+            duration = 5 * 60;
           } else if (result <= 26) {
             level = "Moderate";
+            duration = 10 * 60;
           } else {
             level = "High";
+            duration = 15 * 60;
           }
         }
       });
@@ -96,10 +103,34 @@ class _PSSTestViewState extends State<PSSTestView> {
           backgroundColor: Colors.green,
           duration: Duration(seconds: 2),
         ));
-        // Get.off(() => HomeView());
       });
-      await http.post(Uri.parse(""));
-      // Get.offAll(() => BreathingSession());
+      await http.post(
+        Uri.parse(ApiService.breathingSession),
+        body: {
+          "duration": "$duration",
+          "session_type": level,
+        },
+      ).then((val) {
+        sessionId = jsonDecode(val.body)['id'];
+      });
+      await http.post(
+        Uri.parse(ApiService.userBreathingSession),
+        body: {
+          "user_id": "${AppConstants.userModel!.id}",
+          "session_id": "$sessionId",
+        },
+      );
+
+      if (result <= 13) {
+        Get.offAll(() => BreathingSessionView(cycle: 20, level: level!));
+      } else if (result <= 26) {
+        Get.offAll(() => BreathingSessionView(cycle: 40, level: level!));
+      } else {
+        Get.offAll(() => ChatView());
+        // Get.offAll(() => BreathingSessionView(cycle: 60, level: level));
+        level = "High";
+        duration = 15 * 60;
+      }
     }
   }
 
