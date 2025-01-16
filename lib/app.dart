@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nasma_app/features/home/presentation/screens/chat_view.dart';
 
 import 'core/helper/binding.dart';
 import 'core/utils/colors.dart';
 import 'core/utils/constants.dart';
-import 'features/home/presentation/screens/breathing_session_view.dart';
 import 'features/home/presentation/screens/home_view.dart';
 import 'features/splash/presentation/screens/splash_view.dart';
 
@@ -46,8 +46,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       theme: ThemeData().copyWith(
         scaffoldBackgroundColor: AppColors.backgroundPageColor,
       ),
-      home: controller.mainScreen,
-      // home: BreathingSessionView(),
+      home: SplashView(),
+      // home: ChatView(),
     );
   }
 }

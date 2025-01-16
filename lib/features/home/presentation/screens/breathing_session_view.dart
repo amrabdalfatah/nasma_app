@@ -11,10 +11,12 @@ import 'package:nasma_app/features/home/presentation/screens/widgets/circles_gro
 class BreathingSessionView extends StatefulWidget {
   final int cycle;
   final String level;
+  final int result;
   const BreathingSessionView({
     super.key,
     required this.cycle,
     required this.level,
+    required this.result,
   });
 
   @override
@@ -81,15 +83,14 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
                   // ),
                   if (start) CirclesGroup(),
                   if (!start)
-                    BigText(
-                      text: 'Let\'s Take a session',
-                      color: Colors.black,
-                      size: Dimensions.font20,
+                    Text(
+                      'Let\'s Take a session \nYour result : ${widget.result} / 40 \nYour level: ${widget.level}',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: Dimensions.font20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  // BigText(
-                  //   text: '$sec',
-                  //   color: start ? Colors.white : Colors.black,
-                  // ),
                 ],
               ),
             ),

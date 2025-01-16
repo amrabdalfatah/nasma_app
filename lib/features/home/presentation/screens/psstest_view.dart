@@ -123,11 +123,19 @@ class _PSSTestViewState extends State<PSSTestView> {
       );
 
       if (result <= 13) {
-        Get.offAll(() => BreathingSessionView(cycle: 20, level: level!));
+        Get.offAll(() => BreathingSessionView(
+              result: result,
+              cycle: 20,
+              level: level!,
+            ));
       } else if (result <= 26) {
-        Get.offAll(() => BreathingSessionView(cycle: 40, level: level!));
+        Get.offAll(() => BreathingSessionView(
+              result: result,
+              cycle: 40,
+              level: level!,
+            ));
       } else {
-        Get.offAll(() => ChatView(cycle: 60, level: level!));
+        Get.offAll(() => ChatView(result: result,  cycle: 60, level: level!));
       }
     }
   }

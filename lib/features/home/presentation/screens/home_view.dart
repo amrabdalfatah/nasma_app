@@ -38,11 +38,11 @@ class HomeView extends StatelessWidget {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.chat_bubble_2_fill),
+                icon: Icon(CupertinoIcons.book),
                 label: 'Articles',
               ),
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.book_solid),
+                icon: Icon(CupertinoIcons.settings),
                 label: 'Settings',
               ),
               BottomNavigationBarItem(

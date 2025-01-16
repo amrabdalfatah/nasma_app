@@ -15,14 +15,14 @@ class UserViewModel extends GetxController {
   List<Widget> screens = const [
     HomeScreen(),
     ArticleScreen(),
-    ProfileScreen(),
     SettingScreen(),
+    ProfileScreen(),
   ];
   List<String> appBars = [
     'Home',
     'Articles',
-    'Profile',
     'Setting',
+    'Profile',
   ];
   RxBool action = false.obs;
   ValueNotifier<bool> dataLoaded = ValueNotifier(true);
