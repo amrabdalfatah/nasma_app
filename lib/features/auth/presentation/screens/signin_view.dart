@@ -56,7 +56,7 @@ class _SignInViewState extends State<SignInView> {
           // TODO: save token => response.body
           // Get.offAll(() => HomeView());
           List<UserModel> allUsers = [];
-          var res = await http
+          await http
               .get(
             Uri.parse(ApiService.user),
           )
