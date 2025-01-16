@@ -11,7 +11,7 @@ class CirclesGroup extends StatefulWidget {
 class _CirclesGroupState extends State<CirclesGroup>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 15),
+    duration: const Duration(seconds: 10),
     vsync: this,
   )..repeat();
   late final Animation<double> _animation = CurvedAnimation(
@@ -31,7 +31,7 @@ class _CirclesGroupState extends State<CirclesGroup>
       height: 300,
       width: 300,
       child: LottieBuilder.asset(
-        'assets/lottie/main.json',
+        'assets/lottie/breathe.json',
         controller: _animation,
         fit: BoxFit.cover,
       ),

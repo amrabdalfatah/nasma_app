@@ -28,6 +28,7 @@ class SignInView extends StatefulWidget {
 class _SignInViewState extends State<SignInView> {
   bool hidePassword = true;
   bool action = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -41,52 +42,55 @@ class _SignInViewState extends State<SignInView> {
     setState(() {
       action = true;
     });
-    try {
-      var response = await http.post(
-        Uri.parse(ApiService.login),
-        body: {
-          'username': userNameController.text,
-          'password': passwordController.text,
-        },
-      );
-      if (response.statusCode == 200) {
-        // TODO: save token => response.body
-        // Get.offAll(() => HomeView());
-        List<UserModel> allUsers = [];
-        var res = await http
-            .get(
-          Uri.parse(ApiService.user),
-        )
-            .then((val) {
-          List users = jsonDecode(val.body);
-          users.forEach((ele) {
-            allUsers.add(UserModel.fromJson(ele));
+    _formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      try {
+        var response = await http.post(
+          Uri.parse(ApiService.login),
+          body: {
+            'username': userNameController.text,
+            'password': passwordController.text,
+          },
+        );
+        if (response.statusCode == 200) {
+          // TODO: save token => response.body
+          // Get.offAll(() => HomeView());
+          List<UserModel> allUsers = [];
+          var res = await http
+              .get(
+            Uri.parse(ApiService.user),
+          )
+              .then((val) {
+            List users = jsonDecode(val.body);
+            users.forEach((ele) {
+              allUsers.add(UserModel.fromJson(ele));
+            });
           });
-        });
-        AppConstants.userModel = allUsers.firstWhere(
-            (element) => element.userName == userNameController.text);
-        Get.showSnackbar(GetSnackBar(
-          title: 'Success',
-          message: "Success to Login",
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ));
-        Get.offAll(() => PSSTestView());
-      } else {
-        Get.showSnackbar(GetSnackBar(
-          title: 'Error',
-          message: "Something Error",
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 2),
-        ));
+          AppConstants.userModel = allUsers.firstWhere(
+              (element) => element.userName == userNameController.text);
+          Get.snackbar(
+            'Success',
+            "Success to Login",
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.green,
+          );
+          Get.offAll(() => PSSTestView());
+        } else {
+          Get.snackbar(
+            'Error',
+            "Error with your data",
+            snackPosition: SnackPosition.TOP,
+            colorText: Colors.red,
+          );
+        }
+      } catch (error) {
+        Get.snackbar(
+          'Error',
+          error.toString(),
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.red,
+        );
       }
-    } catch (error) {
-      Get.showSnackbar(GetSnackBar(
-        title: 'Error',
-        message: error.toString(),
-        backgroundColor: Colors.red,
-        duration: Duration(seconds: 2),
-      ));
     }
     setState(() {
       action = false;
@@ -113,123 +117,146 @@ class _SignInViewState extends State<SignInView> {
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimensions.width30),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BigText(
-                  text: 'Log In',
-                  color: Colors.black,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: Dimensions.height100,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigText(
-                        text: 'User Name',
-                        size: Dimensions.font20,
-                        color: Colors.black,
-                        textAlign: TextAlign.start,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: userNameController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: Dimensions.height64,
+                    ),
+                    BigText(
+                      text: 'Log In',
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      height: Dimensions.height64,
+                    ),
+                    SizedBox(
+                      height: Dimensions.height100,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BigText(
+                            text: 'User Name',
+                            size: Dimensions.font20,
+                            color: Colors.black,
+                            textAlign: TextAlign.start,
+                            fontWeight: FontWeight.w600,
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: Dimensions.height100,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigText(
-                        text: 'Password',
-                        size: Dimensions.font20,
-                        color: Colors.black,
-                        textAlign: TextAlign.start,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: passwordController,
-                          obscureText: hidePassword,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  hidePassword = !hidePassword;
-                                });
+                          Expanded(
+                            child: TextFormField(
+                              controller: userNameController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "User Name is required";
+                                }
+                                return null;
                               },
-                              icon: Icon(
-                                hidePassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Get.to(() => ForgotPasswordView());
-                  },
-                  child: Text(
-                    'Forgot Password?',
-                    style: TextStyle(
-                      fontSize: Dimensions.font16,
                     ),
-                  ),
-                ),
-                action
-                    ? Center(
-                        child: CupertinoActivityIndicator(
-                          color: AppColors.mainColor,
-                        ),
-                      )
-                    : MainButton(
-                        text: 'login',
-                        onTap: login,
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
+                    SizedBox(
+                      height: Dimensions.height100,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BigText(
+                            text: 'Password',
+                            size: Dimensions.font20,
+                            color: Colors.black,
+                            textAlign: TextAlign.start,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              controller: passwordController,
+                              obscureText: hidePassword,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Password is required";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      hidePassword = !hidePassword;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    hidePassword
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SmallText(
-                      text: 'Do\'t have an account?',
-                      size: Dimensions.font16,
-                      color: Colors.black,
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.to(() => SignupView());
+                        Get.to(() => ForgotPasswordView());
                       },
                       child: Text(
-                        'Sign Up',
+                        'Forgot Password?',
                         style: TextStyle(
                           fontSize: Dimensions.font16,
                         ),
                       ),
-                    )
+                    ),
+                    action
+                        ? Center(
+                            child: CupertinoActivityIndicator(
+                              color: AppColors.mainColor,
+                            ),
+                          )
+                        : MainButton(
+                            text: 'login',
+                            onTap: login,
+                          ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SmallText(
+                          text: 'Do\'t have an account?',
+                          size: Dimensions.font16,
+                          color: Colors.black,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => SignupView());
+                          },
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              fontSize: Dimensions.font16,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

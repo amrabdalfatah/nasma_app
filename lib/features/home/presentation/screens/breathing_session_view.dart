@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
 import 'package:nasma_app/core/widgets/big_text.dart';
 import 'package:nasma_app/core/widgets/main_button.dart';
@@ -23,7 +22,6 @@ class BreathingSessionView extends StatefulWidget {
 }
 
 class _BreathingSessionViewState extends State<BreathingSessionView> {
-  int sec = 5;
   bool start = false;
   late int cyc;
 
@@ -35,23 +33,15 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
 
   void decreaseSecond(int cycle) {
     if (cycle != 0) {
-      start = true;
+      setState(() {
+        start = true;
+      });
       Timer.periodic(
-        Duration(seconds: 1),
+        Duration(seconds: 10),
         (timer) {
-          if (sec > 1) {
-            setState(() {
-              sec--;
-            });
-          } else {
-            setState(() {
-              sec = 5;
-              --cyc;
-            });
-            decreaseSecond(cycle - 1);
-
-            timer.cancel();
-          }
+          cyc -= 1;
+          decreaseSecond(cycle - 1);
+          timer.cancel();
         },
       );
     } else {
@@ -66,8 +56,9 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.level} Breathing Session'),
-        backgroundColor: AppColors.mainColor,
+        title: Text('Calm'),
+        backgroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -108,14 +99,16 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
               vertical: Dimensions.height64,
               horizontal: Dimensions.height100,
             ),
-            child: MainButton(
-              text: start ? 'Breathing ($cyc)' : 'Start',
-              onTap: start
-                  ? null
-                  : () {
+            child: !start
+                ? MainButton(
+                    text: 'Start',
+                    onTap: () {
                       decreaseSecond(widget.cycle);
                     },
-            ),
+                  )
+                : CircleAvatar(
+                    child: Text("$cyc"),
+                  ),
           ),
         ],
       ),

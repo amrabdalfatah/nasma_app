@@ -7,7 +7,13 @@ import 'package:nasma_app/core/widgets/main_button.dart';
 import 'package:nasma_app/features/home/presentation/screens/home_view.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({super.key});
+  final int cycle;
+  final String level;
+  const ChatView({
+    super.key,
+    required this.cycle,
+    required this.level,
+  });
 
   @override
   Widget build(BuildContext context) {

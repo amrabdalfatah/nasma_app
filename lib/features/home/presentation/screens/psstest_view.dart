@@ -10,6 +10,7 @@ import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
 import 'package:nasma_app/features/home/presentation/screens/breathing_session_view.dart';
+import 'package:nasma_app/features/splash/presentation/screens/splash_view.dart';
 import 'package:nasma_app/models/pss_test.dart';
 import 'package:nasma_app/models/question_test.dart';
 
@@ -97,12 +98,12 @@ class _PSSTestViewState extends State<PSSTestView> {
           "level": level,
         },
       ).then((val) {
-        Get.showSnackbar(GetSnackBar(
-          title: 'Success',
-          message: "Success to Add Test",
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-        ));
+        Get.snackbar(
+          'Success',
+          "Success to Add Test",
+          snackPosition: SnackPosition.TOP,
+          colorText: Colors.green,
+        );
       });
       await http.post(
         Uri.parse(ApiService.breathingSession),
@@ -126,10 +127,7 @@ class _PSSTestViewState extends State<PSSTestView> {
       } else if (result <= 26) {
         Get.offAll(() => BreathingSessionView(cycle: 40, level: level!));
       } else {
-        Get.offAll(() => ChatView());
-        // Get.offAll(() => BreathingSessionView(cycle: 60, level: level));
-        level = "High";
-        duration = 15 * 60;
+        Get.offAll(() => ChatView(cycle: 60, level: level!));
       }
     }
   }
@@ -152,20 +150,27 @@ class _PSSTestViewState extends State<PSSTestView> {
         });
       }
     } catch (error) {
-      print(error);
+      Get.snackbar(
+        'Error',
+        error.toString(),
+        snackPosition: SnackPosition.TOP,
+        colorText: Colors.red,
+      );
+      Get.offAll(() => SplashView());
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('PSS Test'),
-        backgroundColor: AppColors.mainColor,
-      ),
       body: dataLoaded!
           ? Padding(
-              padding: EdgeInsets.all(Dimensions.height30),
+              padding: EdgeInsets.only(
+                top: Dimensions.height100,
+                right: Dimensions.height30,
+                left: Dimensions.height30,
+                bottom: Dimensions.height30,
+              ),
               child: Column(
                 children: [
                   Expanded(
@@ -174,111 +179,77 @@ class _PSSTestViewState extends State<PSSTestView> {
                         Card(
                           color: AppColors.mainColor,
                           child: Padding(
-                            padding: EdgeInsets.all(Dimensions.height10),
+                            padding: EdgeInsets.all(Dimensions.height20),
                             child: Text(
                               allQuestions[index].content!,
                               style: TextStyle(
                                 fontSize: Dimensions.font20,
                                 fontWeight: FontWeight.w500,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: 0,
-                              groupValue: choiceVal,
-                              onChanged: selectValue,
-                            ),
-                            Text(
-                              allQuestions[index].answerZero!,
-                            ),
-                          ],
+                        ListTile(
+                          leading: Radio(
+                            value: 0,
+                            groupValue: choiceVal,
+                            onChanged: selectValue,
+                          ),
+                          title: Text(
+                            allQuestions[index].answerZero!,
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: 1,
-                              groupValue: choiceVal,
-                              onChanged: selectValue,
-                            ),
-                            Text(
-                              allQuestions[index].answerOne!,
-                            ),
-                          ],
+                        ListTile(
+                          leading: Radio(
+                            value: 1,
+                            groupValue: choiceVal,
+                            onChanged: selectValue,
+                          ),
+                          title: Text(
+                            allQuestions[index].answerOne!,
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: 2,
-                              groupValue: choiceVal,
-                              onChanged: selectValue,
-                            ),
-                            Text(
-                              allQuestions[index].answerTwo!,
-                            ),
-                          ],
+                        ListTile(
+                          leading: Radio(
+                            value: 2,
+                            groupValue: choiceVal,
+                            onChanged: selectValue,
+                          ),
+                          title: Text(
+                            allQuestions[index].answerTwo!,
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: 3,
-                              groupValue: choiceVal,
-                              onChanged: selectValue,
-                            ),
-                            Text(
-                              allQuestions[index].answerThree!,
-                            ),
-                          ],
+                        ListTile(
+                          leading: Radio(
+                            value: 3,
+                            groupValue: choiceVal,
+                            onChanged: selectValue,
+                          ),
+                          title: Text(
+                            allQuestions[index].answerThree!,
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Radio(
-                              value: 4,
-                              groupValue: choiceVal,
-                              onChanged: selectValue,
-                            ),
-                            Text(
-                              allQuestions[index].answerFour!,
-                            ),
-                          ],
+                        ListTile(
+                          leading: Radio(
+                            value: 4,
+                            groupValue: choiceVal,
+                            onChanged: selectValue,
+                          ),
+                          title: Text(
+                            allQuestions[index].answerFour!,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Slider(
                     min: 0,
-                    max: 9,
-                    value: index.toDouble(),
+                    max: 10,
+                    value: index.toDouble() + 1,
                     onChanged: (val) {},
                     activeColor: AppColors.mainColor,
                   ),
-                  // SizedBox(
-                  //   height: Dimensions.height100,
-                  //   width: double.infinity,
-                  //   child: Center(
-                  //     child: Container(
-                  //       height: Dimensions.height50,
-                  //       width: Dimensions.height50,
-                  //       alignment: Alignment.center,
-                  //       decoration: BoxDecoration(
-                  //         shape: BoxShape.circle,
-                  //         border: Border.all(
-                  //           color: AppColors.mainColor,
-                  //           width: 2,
-                  //         ),
-                  //       ),
-                  //       child: Text(
-                  //         "${index + 1}",
-                  //         style: TextStyle(
-                  //           fontSize: Dimensions.font32,
-                  //           color: AppColors.mainColor,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             )
