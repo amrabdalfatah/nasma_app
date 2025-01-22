@@ -3,10 +3,8 @@ import 'package:get/get.dart';
 import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
-import 'package:nasma_app/core/utils/images.dart';
 import 'package:nasma_app/core/widgets/big_text.dart';
 import 'package:nasma_app/core/widgets/main_button.dart';
-import 'package:nasma_app/core/widgets/small_text.dart';
 import 'package:nasma_app/features/home/presentation/screens/psstest_view.dart';
 import 'package:nasma_app/features/home/presentation/screens/widgets/custom_app_bar.dart';
 

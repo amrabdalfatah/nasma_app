@@ -50,7 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
         Row(
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage(Images.logo),
+              radius: Dimensions.radius30,
+              backgroundImage: AssetImage(Images.basicLogo),
               backgroundColor: AppColors.secondColor,
             ),
             SizedBox(width: Dimensions.width10),
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BigText(
-                  text: "Your Last Test:",
+                  text: "Your best Test:",
                   color: AppColors.thirdColor,
                   size: Dimensions.font16,
                 ),
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: double.infinity,
                 ),
                 SmallText(
-                  text: 'Level: ${AppConstants.level}',
+                  text: 'Date : ${AppConstants.level}',
                   color: Colors.black,
                   size: Dimensions.font16,
                 ),
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: double.infinity,
                 ),
                 BigText(
-                  text: "You may feel now good",
+                  text: "This is the lowest stress day",
                   color: AppColors.fifthColor,
                   size: Dimensions.font16,
                 ),

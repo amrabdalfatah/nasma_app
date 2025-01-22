@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nasma_app/features/home/presentation/screens/chat_view.dart';
 
 import 'core/helper/binding.dart';
 import 'core/utils/colors.dart';

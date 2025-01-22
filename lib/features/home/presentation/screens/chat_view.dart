@@ -3,12 +3,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
+import 'package:nasma_app/core/widgets/big_text.dart';
 import 'package:nasma_app/features/home/presentation/screens/breathing_session_view.dart';
 import 'package:nasma_app/features/home/presentation/screens/home_view.dart';
-// import 'package:nasma_app/features/home/presentation/screens/widgets/chat_messages.dart';
-// import 'package:nasma_app/features/home/presentation/screens/widgets/new_message.dart';
+import 'package:nasma_app/features/home/presentation/screens/widgets/custom_app_bar.dart';
 
 class ChatView extends StatefulWidget {
   final int cycle;
@@ -51,8 +52,6 @@ class _ChatViewState extends State<ChatView> {
         }),
       );
       if (response.statusCode == 200) {
-        print("////////////////");
-        print(response.body);
         final botReply = jsonDecode(response.body)['reply'];
         setState(() {
           messages.add({'sender': 'bot', 'text': botReply});
@@ -79,32 +78,55 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: Text('Breabot'),
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Get.offAll(() => HomeView());
-          },
-          icon: Icon(Icons.home),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Get.offAll(() => BreathingSessionView(
-                    result: widget.result,
-                    cycle: widget.cycle,
-                    level: widget.level,
-                  ));
-            },
-            icon: Icon(FontAwesomeIcons.circleNotch),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   title: Text('Breabot'),
+      //   backgroundColor: Colors.white,
+      //   centerTitle: true,
+
+      //   actions: [
+
+      //   ],
+      // ),
       // I guess not. All I can think about are my exams.
       body: Column(
         children: [
+          CustomAppBar(
+            child: Center(
+              child: SizedBox(
+                height: Dimensions.height50,
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.offAll(() => HomeView());
+                      },
+                      icon: Icon(
+                        Icons.home,
+                      ),
+                    ),
+                    BigText(
+                      text: 'Breabot',
+                      size: Dimensions.font20,
+                      color: Colors.black,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Get.offAll(() => BreathingSessionView(
+                              result: widget.result,
+                              cycle: widget.cycle,
+                              level: widget.level,
+                            ));
+                      },
+                      icon: Icon(FontAwesomeIcons.circleNotch),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               reverse: true,
@@ -126,7 +148,8 @@ class _ChatViewState extends State<ChatView> {
                     ),
                     padding: const EdgeInsets.all(10.0),
                     decoration: BoxDecoration(
-                      color: isUser ? Colors.blue[200] : Colors.grey[300],
+                      color:
+                          isUser ? AppColors.forthColor : AppColors.secondColor,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Text(

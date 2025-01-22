@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/utils/colors.dart';
 import '../../../../core/utils/dimensions.dart';
 import '../../../../core/utils/images.dart';
-import '../../../../core/widgets/big_text.dart';
 import '../../../../core/widgets/login_button.dart';
 
 class DeatilAppView extends StatefulWidget {

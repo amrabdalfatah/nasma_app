@@ -5,12 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nasma_app/core/utils/api_service.dart';
 import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
-import 'package:nasma_app/core/widgets/big_text.dart';
-import 'package:nasma_app/core/widgets/small_text.dart';
 import 'package:nasma_app/features/home/presentation/screens/breathing_session_view.dart';
 import 'package:nasma_app/features/splash/presentation/screens/splash_view.dart';
 import 'package:nasma_app/models/pss_test.dart';
@@ -91,6 +90,8 @@ class _PSSTestViewState extends State<PSSTestView> {
           }
         }
       });
+      AppConstants.result = result;
+      AppConstants.level = level;
       await http.post(
         Uri.parse(ApiService.pssResults),
         body: {
@@ -127,22 +128,50 @@ class _PSSTestViewState extends State<PSSTestView> {
       if (result <= 13) {
         Get.defaultDialog(
           title: "Congratulation",
-          content: SmallText(
-            text:
-                'You completed Test \nYour score is: $result / 40 \nYou need a breathing session for 20 cycle',
-            color: Colors.black,
-            size: Dimensions.font16,
+          titleStyle: TextStyle(
+            color: AppColors.forthColor,
+          ),
+          content: Column(
+            children: [
+              SizedBox(
+                height: Dimensions.height100,
+                child: LottieBuilder.asset('assets/lottie/congrate.json'),
+              ),
+              SizedBox(
+                height: Dimensions.height15,
+              ),
+              RichText(
+                text: TextSpan(
+                  text: 'You completed Test \nYour score = ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: Dimensions.font20,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '$result / 40',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '\nYou need a ',
+                    ),
+                    TextSpan(
+                      text: 'Breathing Session ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '\nfor 20 cycle',
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           onConfirm: () {
-            Get.offAll(
-              () => BreathingSessionView(
-                result: result,
-                cycle: 20,
-                level: level!,
-              ),
-            );
-          },
-          onCancel: () {
             Get.offAll(
               () => BreathingSessionView(
                 result: result,
@@ -155,22 +184,50 @@ class _PSSTestViewState extends State<PSSTestView> {
       } else if (result <= 26) {
         Get.defaultDialog(
           title: "Congratulation",
-          content: SmallText(
-            text:
-                'You completed Test \nYour score is: $result / 40 \nYou need a breathing session for 40 cycle',
-            color: Colors.black,
-            size: Dimensions.font16,
+          titleStyle: TextStyle(
+            color: AppColors.forthColor,
+          ),
+          content: Column(
+            children: [
+              SizedBox(
+                height: Dimensions.height100,
+                child: LottieBuilder.asset('assets/lottie/congrate.json'),
+              ),
+              SizedBox(
+                height: Dimensions.height15,
+              ),
+              RichText(
+                text: TextSpan(
+                  text: 'You completed Test \nYour score = ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: Dimensions.font20,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '$result / 40',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '\nYou need a ',
+                    ),
+                    TextSpan(
+                      text: 'Breathing Session ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '\nfor 40 cycle',
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           onConfirm: () {
-            Get.offAll(
-              () => BreathingSessionView(
-                result: result,
-                cycle: 40,
-                level: level!,
-              ),
-            );
-          },
-          onCancel: () {
             Get.offAll(
               () => BreathingSessionView(
                 result: result,
@@ -183,22 +240,59 @@ class _PSSTestViewState extends State<PSSTestView> {
       } else {
         Get.defaultDialog(
           title: "Congratulation",
-          content: SmallText(
-            text:
-                'You completed Test \nYour score is: $result / 40 \nYou need to chat with our chatbot \nafter that you need a breathing session for 60 cycle',
-            color: Colors.black,
-            size: Dimensions.font16,
+          titleStyle: TextStyle(
+            color: AppColors.forthColor,
+          ),
+          content: Column(
+            children: [
+              SizedBox(
+                height: Dimensions.height100,
+                child: LottieBuilder.asset('assets/lottie/congrate.json'),
+              ),
+              SizedBox(
+                height: Dimensions.height15,
+              ),
+              RichText(
+                text: TextSpan(
+                  text: 'You completed Test \nYour score = ',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: Dimensions.font20,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: '$result / 40',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: '\nYou need to chat with our',
+                    ),
+                    TextSpan(
+                      text: '\nChatBot ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'after that you need a\n',
+                    ),
+                    TextSpan(
+                      text: 'Breathing Session ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'for 60 cycle',
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           onConfirm: () {
-            Get.offAll(
-              () => ChatView(
-                result: result,
-                cycle: 60,
-                level: level!,
-              ),
-            );
-          },
-          onCancel: () {
             Get.offAll(
               () => ChatView(
                 result: result,

@@ -15,12 +15,14 @@ class HomeView extends StatelessWidget {
       init: UserViewModel(),
       builder: (controller) {
         return Scaffold(
+          // backgroundColor: AppColors.secondColor,
           appBar: AppBar(
             backgroundColor: AppColors.mainColor,
+            centerTitle: true,
             title: Text(
               controller.appBars[controller.screenIndex.value],
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ),

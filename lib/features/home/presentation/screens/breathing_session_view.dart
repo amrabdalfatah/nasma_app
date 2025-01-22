@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
-import 'package:nasma_app/core/widgets/big_text.dart';
 import 'package:nasma_app/core/widgets/main_button.dart';
 import 'package:nasma_app/features/home/presentation/screens/home_view.dart';
 import 'package:nasma_app/features/home/presentation/screens/widgets/circles_group.dart';
