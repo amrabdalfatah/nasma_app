@@ -7,7 +7,7 @@ import 'package:nasma_app/features/home/presentation/screens/profile_screen.dart
 import 'package:nasma_app/models/user_model.dart';
 
 import '../screens/article_screen.dart';
-import '../screens/setting_screen.dart';
+// import '../screens/setting_screen.dart';
 
 class UserViewModel extends GetxController {
   UserModel? userData;
@@ -15,13 +15,13 @@ class UserViewModel extends GetxController {
   List<Widget> screens = const [
     HomeScreen(),
     ArticleScreen(),
-    SettingScreen(),
+    // SettingScreen(),
     ProfileScreen(),
   ];
   List<String> appBars = [
     'Home',
     'Articles',
-    'Setting',
+    // 'Setting',
     'Profile',
   ];
   RxBool action = false.obs;

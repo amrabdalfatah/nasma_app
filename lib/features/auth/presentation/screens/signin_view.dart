@@ -8,12 +8,13 @@ import 'package:nasma_app/core/utils/api_service.dart';
 import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
+import 'package:nasma_app/core/utils/images.dart';
 import 'package:nasma_app/core/widgets/big_text.dart';
 // import 'package:nasma_app/core/widgets/data_input.dart';
 import 'package:nasma_app/core/widgets/main_button.dart';
 import 'package:nasma_app/core/widgets/small_text.dart';
 import 'package:nasma_app/features/auth/presentation/screens/signup_view.dart';
-import 'package:nasma_app/features/home/presentation/screens/psstest_view.dart';
+import 'package:nasma_app/features/home/presentation/screens/detail_test_view.dart';
 import 'package:nasma_app/models/user_model.dart';
 
 import 'forgot_password_view.dart';
@@ -74,7 +75,7 @@ class _SignInViewState extends State<SignInView> {
             snackPosition: SnackPosition.TOP,
             colorText: Colors.green,
           );
-          Get.offAll(() => PSSTestView());
+          Get.offAll(() => DetailTestView());
         } else {
           Get.snackbar(
             'Error',
@@ -108,12 +109,13 @@ class _SignInViewState extends State<SignInView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('assets/images/bird.jpg'),
-        //     fit: BoxFit.fill,
-        //   ),
-        // ),
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(Images.bg),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimensions.width30),
@@ -158,7 +160,13 @@ class _SignInViewState extends State<SignInView> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    Dimensions.radius15,
+                                  ),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
                               ),
                             ),
                           ),
@@ -193,7 +201,13 @@ class _SignInViewState extends State<SignInView> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    Dimensions.radius15,
+                                  ),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
@@ -220,6 +234,8 @@ class _SignInViewState extends State<SignInView> {
                         'Forgot Password?',
                         style: TextStyle(
                           fontSize: Dimensions.font16,
+                          color: AppColors.forthColor,
+                          fontStyle: FontStyle.italic,
                         ),
                       ),
                     ),
@@ -249,6 +265,8 @@ class _SignInViewState extends State<SignInView> {
                             'Sign Up',
                             style: TextStyle(
                               fontSize: Dimensions.font16,
+                              color: AppColors.forthColor,
+                              fontStyle: FontStyle.italic,
                             ),
                           ),
                         )

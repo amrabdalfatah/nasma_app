@@ -29,7 +29,6 @@ class SmallText extends StatelessWidget {
     return Text(
       text,
       textAlign: textAlign,
-      overflow: overFlow,
       style: TextStyle(
         fontFamily: fontFamily,
         fontWeight: fontWeight,

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nasma_app/core/utils/colors.dart';
+import 'package:nasma_app/core/utils/dimensions.dart';
 
 import '../view_model/user_viewmodel.dart';
 
@@ -23,7 +24,10 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-          body: controller.screens[controller.screenIndex.value],
+          body: Padding(
+            padding: EdgeInsets.all(Dimensions.height30),
+            child: controller.screens[controller.screenIndex.value],
+          ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: controller.screenIndex.value,
             type: BottomNavigationBarType.fixed,
@@ -41,10 +45,10 @@ class HomeView extends StatelessWidget {
                 icon: Icon(CupertinoIcons.book),
                 label: 'Articles',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.settings),
-                label: 'Settings',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(CupertinoIcons.settings),
+              //   label: 'Settings',
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.profile_circled),
                 label: 'Profile',

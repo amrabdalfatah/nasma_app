@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       theme: ThemeData().copyWith(
         scaffoldBackgroundColor: AppColors.backgroundPageColor,
       ),
+      // home: HomeView(),
       home: SplashView(),
       // home: ChatView(),
     );

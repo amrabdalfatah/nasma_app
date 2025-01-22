@@ -9,6 +9,8 @@ import 'package:nasma_app/core/utils/api_service.dart';
 import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/constants.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
+import 'package:nasma_app/core/widgets/big_text.dart';
+import 'package:nasma_app/core/widgets/small_text.dart';
 import 'package:nasma_app/features/home/presentation/screens/breathing_session_view.dart';
 import 'package:nasma_app/features/splash/presentation/screens/splash_view.dart';
 import 'package:nasma_app/models/pss_test.dart';
@@ -123,19 +125,89 @@ class _PSSTestViewState extends State<PSSTestView> {
       );
 
       if (result <= 13) {
-        Get.offAll(() => BreathingSessionView(
-              result: result,
-              cycle: 20,
-              level: level!,
-            ));
+        Get.defaultDialog(
+          title: "Congratulation",
+          content: SmallText(
+            text:
+                'You completed Test \nYour score is: $result / 40 \nYou need a breathing session for 20 cycle',
+            color: Colors.black,
+            size: Dimensions.font16,
+          ),
+          onConfirm: () {
+            Get.offAll(
+              () => BreathingSessionView(
+                result: result,
+                cycle: 20,
+                level: level!,
+              ),
+            );
+          },
+          onCancel: () {
+            Get.offAll(
+              () => BreathingSessionView(
+                result: result,
+                cycle: 20,
+                level: level!,
+              ),
+            );
+          },
+        );
       } else if (result <= 26) {
-        Get.offAll(() => BreathingSessionView(
-              result: result,
-              cycle: 40,
-              level: level!,
-            ));
+        Get.defaultDialog(
+          title: "Congratulation",
+          content: SmallText(
+            text:
+                'You completed Test \nYour score is: $result / 40 \nYou need a breathing session for 40 cycle',
+            color: Colors.black,
+            size: Dimensions.font16,
+          ),
+          onConfirm: () {
+            Get.offAll(
+              () => BreathingSessionView(
+                result: result,
+                cycle: 40,
+                level: level!,
+              ),
+            );
+          },
+          onCancel: () {
+            Get.offAll(
+              () => BreathingSessionView(
+                result: result,
+                cycle: 40,
+                level: level!,
+              ),
+            );
+          },
+        );
       } else {
-        Get.offAll(() => ChatView(result: result,  cycle: 60, level: level!));
+        Get.defaultDialog(
+          title: "Congratulation",
+          content: SmallText(
+            text:
+                'You completed Test \nYour score is: $result / 40 \nYou need to chat with our chatbot \nafter that you need a breathing session for 60 cycle',
+            color: Colors.black,
+            size: Dimensions.font16,
+          ),
+          onConfirm: () {
+            Get.offAll(
+              () => ChatView(
+                result: result,
+                cycle: 60,
+                level: level!,
+              ),
+            );
+          },
+          onCancel: () {
+            Get.offAll(
+              () => ChatView(
+                result: result,
+                cycle: 60,
+                level: level!,
+              ),
+            );
+          },
+        );
       }
     }
   }
@@ -171,6 +243,7 @@ class _PSSTestViewState extends State<PSSTestView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.secondColor,
       body: dataLoaded!
           ? Padding(
               padding: EdgeInsets.only(
@@ -185,7 +258,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                     child: Column(
                       children: [
                         Card(
-                          color: AppColors.mainColor,
+                          color: AppColors.forthColor,
                           child: Padding(
                             padding: EdgeInsets.all(Dimensions.height20),
                             child: Text(
@@ -199,6 +272,14 @@ class _PSSTestViewState extends State<PSSTestView> {
                           ),
                         ),
                         ListTile(
+                          onTap: () {
+                            Get.snackbar(
+                              'Error',
+                              "You must select a circle",
+                              snackPosition: SnackPosition.TOP,
+                              colorText: Colors.red,
+                            );
+                          },
                           leading: Radio(
                             value: 0,
                             groupValue: choiceVal,
@@ -206,9 +287,20 @@ class _PSSTestViewState extends State<PSSTestView> {
                           ),
                           title: Text(
                             allQuestions[index].answerZero!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         ListTile(
+                          onTap: () {
+                            Get.snackbar(
+                              'Error',
+                              "You must select a circle",
+                              snackPosition: SnackPosition.TOP,
+                              colorText: Colors.red,
+                            );
+                          },
                           leading: Radio(
                             value: 1,
                             groupValue: choiceVal,
@@ -216,9 +308,20 @@ class _PSSTestViewState extends State<PSSTestView> {
                           ),
                           title: Text(
                             allQuestions[index].answerOne!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         ListTile(
+                          onTap: () {
+                            Get.snackbar(
+                              'Error',
+                              "You must select a circle",
+                              snackPosition: SnackPosition.TOP,
+                              colorText: Colors.red,
+                            );
+                          },
                           leading: Radio(
                             value: 2,
                             groupValue: choiceVal,
@@ -226,9 +329,20 @@ class _PSSTestViewState extends State<PSSTestView> {
                           ),
                           title: Text(
                             allQuestions[index].answerTwo!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         ListTile(
+                          onTap: () {
+                            Get.snackbar(
+                              'Error',
+                              "You must select a circle",
+                              snackPosition: SnackPosition.TOP,
+                              colorText: Colors.red,
+                            );
+                          },
                           leading: Radio(
                             value: 3,
                             groupValue: choiceVal,
@@ -236,9 +350,20 @@ class _PSSTestViewState extends State<PSSTestView> {
                           ),
                           title: Text(
                             allQuestions[index].answerThree!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         ListTile(
+                          onTap: () {
+                            Get.snackbar(
+                              'Error',
+                              "You must select a circle",
+                              snackPosition: SnackPosition.TOP,
+                              colorText: Colors.red,
+                            );
+                          },
                           leading: Radio(
                             value: 4,
                             groupValue: choiceVal,
@@ -246,6 +371,9 @@ class _PSSTestViewState extends State<PSSTestView> {
                           ),
                           title: Text(
                             allQuestions[index].answerFour!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

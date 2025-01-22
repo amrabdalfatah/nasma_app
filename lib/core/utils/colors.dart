@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color mainColor = Color.fromRGBO(100, 184, 195, 1);
+  static const Color mainColor = Color(0xFF85A696);
+  static const Color secondColor = Color(0xFFF2E8E4);
+  static const Color thirdColor = Color(0xFF79978F);
+  static const Color forthColor = Color(0xFF748C85);
+  static const Color fifthColor = Color(0xFF798CBC);
   static const Color backgroundPageColor = Colors.white;
   static const Color backgroundTileColor = Color.fromRGBO(238, 240, 248, 1);
   static const Color backgroundChipColor = Color.fromRGBO(248, 245, 209, 1);

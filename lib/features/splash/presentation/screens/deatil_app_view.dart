@@ -32,34 +32,18 @@ class _DeatilAppViewState extends State<DeatilAppView> {
   Widget build(BuildContext context) {
     changeScreen();
     return Scaffold(
-      body: SafeArea(
+      body: DecoratedBox(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              Images.background,
+            ),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(
-              height: screenHeight * 0.4,
-              child: Image.asset(
-                Images.logo,
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                BigText(
-                  text: 'Manage your ',
-                  color: Colors.black,
-                  size: Dimensions.font32,
-                ),
-                BigText(
-                  text: 'Stress',
-                  color: AppColors.mainColor,
-                  size: Dimensions.font32,
-                ),
-              ],
-            ),
             Padding(
               padding: EdgeInsets.only(
                 left: Dimensions.height15,
@@ -67,6 +51,10 @@ class _DeatilAppViewState extends State<DeatilAppView> {
                 top: screenHeight * 0.03,
               ),
               child: const LoginButton(),
+            ),
+            SizedBox(
+              height: screenHeight * 0.15,
+              width: double.infinity,
             ),
           ],
         ),

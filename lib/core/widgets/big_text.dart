@@ -10,6 +10,7 @@ class BigText extends StatelessWidget {
     this.textAlign = TextAlign.center,
     this.overFlow = TextOverflow.ellipsis,
     this.fontFamily,
+    this.fontStyle = FontStyle.normal,
     this.fontWeight = FontWeight.w700,
     this.size = 0,
   });
@@ -21,6 +22,7 @@ class BigText extends StatelessWidget {
   final TextAlign textAlign;
   final String? fontFamily;
   final FontWeight fontWeight;
+  final FontStyle fontStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class BigText extends StatelessWidget {
         color: color,
         fontSize: size == 0 ? Dimensions.font45 : size,
         fontWeight: fontWeight,
+        fontStyle: fontStyle,
       ),
     );
   }

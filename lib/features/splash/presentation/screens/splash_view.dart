@@ -32,29 +32,27 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(
-              Dimensions.height10,
+      body: DecoratedBox(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+              Images.mainLogo,
             ),
-            child: SizedBox(
-              height: Dimensions.screenHeight * 0.4,
-              child: Image.asset(
-                Images.logo,
-                fit: BoxFit.cover,
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: Dimensions.height15,
+              width: double.infinity,
+              child: const CupertinoActivityIndicator(
+                color: AppColors.mainColor,
               ),
             ),
-          ),
-          SizedBox(
-            height: Dimensions.height15,
-            width: double.infinity,
-            child: const CupertinoActivityIndicator(
-              color: AppColors.mainColor,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
