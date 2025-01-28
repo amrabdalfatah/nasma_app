@@ -74,6 +74,7 @@ class _SignInViewState extends State<SignInView> {
             "Success to Login",
             snackPosition: SnackPosition.TOP,
             colorText: Colors.green,
+            duration: Duration(seconds: 6),
           );
           Get.offAll(() => DetailTestView());
         } else {

@@ -16,6 +16,7 @@ import 'package:nasma_app/models/pss_test.dart';
 import 'package:nasma_app/models/question_test.dart';
 
 import 'chat_view.dart';
+import 'home_view.dart';
 
 class PSSTestView extends StatefulWidget {
   const PSSTestView({super.key});
@@ -47,7 +48,7 @@ class _PSSTestViewState extends State<PSSTestView> {
 
   void selectValue(int? val) async {
     choiceVal = val;
-    if (index == 3 || index == 4 || index == 6 || index == 7) {
+    if (index == 2 || index == 3 || index == 5 || index == 6 || index == 9) {
       choiceVal == 0
           ? result += 4
           : choiceVal == 1
@@ -141,6 +142,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                 height: Dimensions.height15,
               ),
               RichText(
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'You completed Test \nYour score = ',
                   style: TextStyle(
@@ -164,7 +166,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                       ),
                     ),
                     TextSpan(
-                      text: '\nfor 20 cycle',
+                      text: '\nfor 30 cycle',
                     ),
                   ],
                 ),
@@ -172,13 +174,14 @@ class _PSSTestViewState extends State<PSSTestView> {
             ],
           ),
           onConfirm: () {
-            Get.offAll(
-              () => BreathingSessionView(
-                result: result,
-                cycle: 20,
-                level: level!,
-              ),
-            );
+            // Get.offAll(
+            //   () => BreathingSessionView(
+            //     result: result,
+            //     cycle: 30,
+            //     level: level!,
+            //   ),
+            // );
+            Get.offAll(() => HomeView());
           },
         );
       } else if (result <= 26) {
@@ -197,6 +200,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                 height: Dimensions.height15,
               ),
               RichText(
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'You completed Test \nYour score = ',
                   style: TextStyle(
@@ -220,7 +224,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                       ),
                     ),
                     TextSpan(
-                      text: '\nfor 40 cycle',
+                      text: '\nfor 60 cycle',
                     ),
                   ],
                 ),
@@ -228,13 +232,14 @@ class _PSSTestViewState extends State<PSSTestView> {
             ],
           ),
           onConfirm: () {
-            Get.offAll(
-              () => BreathingSessionView(
-                result: result,
-                cycle: 40,
-                level: level!,
-              ),
-            );
+            // Get.offAll(
+            //   () => BreathingSessionView(
+            //     result: result,
+            //     cycle: 60,
+            //     level: level!,
+            //   ),
+            // );
+            Get.offAll(() => HomeView());
           },
         );
       } else {
@@ -253,6 +258,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                 height: Dimensions.height15,
               ),
               RichText(
+                textAlign: TextAlign.center,
                 text: TextSpan(
                   text: 'You completed Test \nYour score = ',
                   style: TextStyle(
@@ -285,7 +291,7 @@ class _PSSTestViewState extends State<PSSTestView> {
                       ),
                     ),
                     TextSpan(
-                      text: 'for 60 cycle',
+                      text: 'for 90 cycle',
                     ),
                   ],
                 ),
@@ -296,10 +302,11 @@ class _PSSTestViewState extends State<PSSTestView> {
             Get.offAll(
               () => ChatView(
                 result: result,
-                cycle: 60,
+                cycle: 90,
                 level: level!,
               ),
             );
+            // Get.offAll(() => HomeView());
           },
         );
       }

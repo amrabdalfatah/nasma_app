@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
 import 'package:nasma_app/core/widgets/main_button.dart';
 import 'package:nasma_app/features/home/presentation/screens/home_view.dart';
@@ -56,10 +57,11 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.secondColor,
       appBar: AppBar(
-        title: Text('Calm'),
-        backgroundColor: Colors.white,
+        title: Text('Nasma Breathing'),
         centerTitle: true,
+        backgroundColor: AppColors.secondColor,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +109,13 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
                     },
                   )
                 : CircleAvatar(
-                    child: Text("$cyc"),
+                    backgroundColor: AppColors.mainColor,
+                    child: Text(
+                      "$cyc",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
           ),
         ],
