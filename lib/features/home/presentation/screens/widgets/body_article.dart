@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nasma_app/core/utils/colors.dart';
 import 'package:nasma_app/core/utils/dimensions.dart';
 import 'package:nasma_app/core/widgets/big_text.dart';
-import 'package:nasma_app/core/widgets/small_text.dart';
 import 'package:nasma_app/models/article_model.dart';
 
 import 'show_category.dart';
@@ -96,6 +96,7 @@ class _BodyArticleState extends State<BodyArticle> {
                   itemCount: widget.allData.length,
                   itemBuilder: (context, index) {
                     return Card(
+                      color: AppColors.secondColor,
                       child: Padding(
                         padding: EdgeInsets.all(
                           Dimensions.height20,

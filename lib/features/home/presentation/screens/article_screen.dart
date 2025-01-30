@@ -5,10 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:nasma_app/core/utils/api_service.dart';
-import 'package:nasma_app/core/utils/colors.dart';
-import 'package:nasma_app/core/utils/dimensions.dart';
 import 'package:nasma_app/features/home/presentation/screens/widgets/body_article.dart';
-import 'package:nasma_app/features/home/presentation/screens/widgets/show_category.dart';
 import 'package:nasma_app/models/article_model.dart';
 
 class ArticleScreen extends StatefulWidget {

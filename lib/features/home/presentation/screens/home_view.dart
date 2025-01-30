@@ -17,7 +17,7 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           // backgroundColor: AppColors.secondColor,
           appBar: AppBar(
-            backgroundColor: AppColors.mainColor,
+            backgroundColor: AppColors.secondColor,
             centerTitle: true,
             title: Text(
               controller.appBars[controller.screenIndex.value],

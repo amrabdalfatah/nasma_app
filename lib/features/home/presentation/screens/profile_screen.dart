@@ -15,84 +15,87 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(Dimensions.height20),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: Dimensions.height70,
-              backgroundImage: AssetImage(Images.logo),
-              backgroundColor: Colors.grey[300],
-            ),
-            SizedBox(
-              height: Dimensions.height45,
-              width: double.infinity,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: double.infinity,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: Dimensions.height70,
+            backgroundImage: AssetImage(Images.basicLogo),
+            backgroundColor: Colors.grey[300],
+          ),
+          SizedBox(
+            height: Dimensions.height45,
+            width: double.infinity,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: double.infinity,
+              ),
+              Card(
+                color: AppColors.secondColor,
+                child: ListTile(
+                  leading: Icon(Icons.numbers),
+                  title: BigText(
+                    text: AppConstants.userModel!.id!.toString(),
+                    color: Colors.black,
+                    size: Dimensions.font20,
+                    // textAlign: TextAlign.start,
+                  ),
                 ),
-                BigText(
-                  text: 'Id',
-                  color: Colors.black,
-                  size: Dimensions.font20,
+              ),
+              Card(
+                color: AppColors.secondColor,
+                child: ListTile(
+                  leading: Icon(Icons.person),
+                  title: BigText(
+                    text: AppConstants.userModel!.userName!,
+                    color: Colors.black,
+                    size: Dimensions.font20,
+                    // textAlign: TextAlign.start,
+                  ),
                 ),
-                BigText(
-                  text: AppConstants.userModel!.id!.toString(),
-                  size: Dimensions.font32,
-                  color: AppColors.mainColor,
+              ),
+              Card(
+                color: AppColors.secondColor,
+                child: ListTile(
+                  leading: Icon(Icons.email),
+                  title: BigText(
+                    text: AppConstants.userModel!.email!,
+                    color: Colors.black,
+                    size: Dimensions.font20,
+                    // textAlign: TextAlign.start,
+                  ),
                 ),
-                BigText(
-                  text: 'User Name',
-                  color: Colors.black,
-                  size: Dimensions.font20,
-                ),
-                BigText(
-                  text: AppConstants.userModel!.userName!,
-                  size: Dimensions.font32,
-                  color: AppColors.mainColor,
-                ),
-                BigText(
-                  text: 'Email',
-                  color: Colors.black,
-                  size: Dimensions.font20,
-                ),
-                BigText(
-                  text: AppConstants.userModel!.email!,
-                  size: Dimensions.font32,
-                  color: AppColors.mainColor,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: Dimensions.height45,
-              width: double.infinity,
-            ),
-            MainButton(
-              text: 'Logout',
-              color: Colors.red,
-              onTap: () async {
-                await http
-                    .post(
-                  Uri.parse(ApiService.logout),
-                )
-                    .then((val) {
-                  Get.showSnackbar(GetSnackBar(
-                    title: 'Logout',
-                    message: 'Logout Successfully',
-                    backgroundColor: Colors.green,
-                    duration: Duration(seconds: 2),
-                  ));
-                  Get.offAll(() => SplashView());
-                });
-              },
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: Dimensions.height45,
+            width: double.infinity,
+          ),
+          MainButton(
+            text: 'Logout',
+            color: AppColors.mainColor,
+            onTap: () async {
+              await http
+                  .post(
+                Uri.parse(ApiService.logout),
+              )
+                  .then((val) {
+                Get.showSnackbar(GetSnackBar(
+                  title: 'Logout',
+                  message: 'Logout Successfully',
+                  backgroundColor: Colors.green,
+                  duration: Duration(seconds: 2),
+                ));
+                Get.offAll(() => SplashView());
+              });
+            },
+          ),
+        ],
       ),
     );
   }

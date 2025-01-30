@@ -62,6 +62,14 @@ class _BreathingSessionViewState extends State<BreathingSessionView> {
         title: Text('Nasma Breathing'),
         centerTitle: true,
         backgroundColor: AppColors.secondColor,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.offAll(() => HomeView());
+            },
+            icon: Icon(Icons.home),
+          ),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

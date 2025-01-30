@@ -16,7 +16,6 @@ import 'package:nasma_app/models/pss_test.dart';
 import 'package:nasma_app/models/question_test.dart';
 
 import 'chat_view.dart';
-import 'home_view.dart';
 
 class PSSTestView extends StatefulWidget {
   const PSSTestView({super.key});
@@ -174,14 +173,13 @@ class _PSSTestViewState extends State<PSSTestView> {
             ],
           ),
           onConfirm: () {
-            // Get.offAll(
-            //   () => BreathingSessionView(
-            //     result: result,
-            //     cycle: 30,
-            //     level: level!,
-            //   ),
-            // );
-            Get.offAll(() => HomeView());
+            Get.offAll(
+              () => BreathingSessionView(
+                result: result,
+                cycle: 30,
+                level: level!,
+              ),
+            );
           },
         );
       } else if (result <= 26) {
@@ -232,14 +230,13 @@ class _PSSTestViewState extends State<PSSTestView> {
             ],
           ),
           onConfirm: () {
-            // Get.offAll(
-            //   () => BreathingSessionView(
-            //     result: result,
-            //     cycle: 60,
-            //     level: level!,
-            //   ),
-            // );
-            Get.offAll(() => HomeView());
+            Get.offAll(
+              () => BreathingSessionView(
+                result: result,
+                cycle: 60,
+                level: level!,
+              ),
+            );
           },
         );
       } else {
@@ -306,7 +303,6 @@ class _PSSTestViewState extends State<PSSTestView> {
                 level: level!,
               ),
             );
-            // Get.offAll(() => HomeView());
           },
         );
       }
